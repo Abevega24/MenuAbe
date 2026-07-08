@@ -1,0 +1,134 @@
+import java.util.Scanner
+
+fun main() {
+    var opcion = true
+    val scanner = Scanner(System.`in`)
+    
+    while (opcion){
+        println("\n*****Elige una opcion*****")
+        println("1.- Opereciones matematicas")
+        println("2.- If")
+        println("3.- For")
+        println("4.- While")
+        println("5.- Salir")
+    
+    val seleccion = readlnOrNull()?.toIntOrNull() ?: 0
+    
+        when (seleccion) {
+            1 ->{ 
+            println("\nEjecutando: Operaciones matematicas")
+                println("Ingresa el primer numero")
+                val num1 = scanner.nextInt()
+                println("Ingresa el segundo numero")
+                val num2 = scanner.nextInt()
+                
+                val suma = Suma(num1, num2)
+                val resta = Resta(num1, num2)
+                val multiplicacion = Multiplicacion(num1, num2)
+                val division = Division(num1, num2)
+                
+                println("Suma:${suma.sumar()}")
+                println("Resta:${resta.restar()}")
+                println("Multiplicacion:${multiplicacion.multiplicar()}")
+                println("Divison:${division.dividir()}")
+            }
+                
+            2 -> {
+            println("\nEjecutando: Estructura Condicional If")
+                println("Ingresatu edad")
+                val edad = scanner.nextInt()
+                val verificador = VerificadorEdad()
+                val resultado = verificador.evaluar(edad)
+                println("$resultado")
+            }
+            3 -> {
+                println("\nEjecutando: Bucle For")
+                rutinas()
+                consecutivoAbe()
+                dosNdos()
+                arrays()
+                }
+            
+            4 -> {
+                println("\nEjecutando: Bucle While")
+                
+                var puntoSet = 17
+                val puntuacionFinal = 25
+                
+                while(puntoSet < puntuacionFinal){
+                    println("partido en curso, punto: ${++puntoSet}")
+                }
+                println("termino el Set!")
+            }
+            5 -> {
+                println("\nSaliendo...")
+                opcion = false // Esto rompe el bucle while y el programa termina de forma limpia
+            }
+            else -> println("\n Opción no válida. Por favor, intenta de nuevo.")
+        }
+    }
+    
+}
+
+                    fun rutinas(){
+                    val pasos = arrayOf("despierta, lava tus dientes, ejercicio, desayunar")
+                    for (i in pasos.indices){
+                        println(pasos[i])
+                    }
+                }
+                
+                    fun consecutivoAbe(){
+                        for( i in 1..12){
+                            println("$i Abraham")
+                        }
+                    }
+                    
+                    fun dosNdos(){
+                    val dos = 0..16 step 2
+                        for(uno in dos){
+                            println(uno)
+                        }
+                    }
+                    
+                    fun arrays(){
+                        val miLista = listOf(10,20,30,40,50,60,70)
+                        val miSet = setOf(11,22,33,44,55,66,77)
+                        val miArray = arrayOf(100,200,300,400,500)
+                        val miMap = mapOf(1 to 100, 2 to 200, 3 to 300)
+                        
+                        for(uno in miArray){
+                            println(uno)
+                        }
+                    }
+
+            class Suma(val num1: Int, val num2: Int){
+            fun sumar(): Int{
+            return num1 + num2
+        }
+    }
+            class Resta(val num1: Int, val num2: Int){
+                fun restar(): Int{
+                    return num1 - num2
+                }
+            }
+            
+            class Multiplicacion(val num1: Int, val num2: Int){
+                fun multiplicar():Int{
+                    return num1 * num2
+                }
+            }
+            
+            class Division(val num1: Int, val num2: Int){
+                fun dividir():Int{
+                    return num1 / num2
+                }
+            }
+            class VerificadorEdad{
+                fun evaluar(edad: Int): String{
+                    return if (edad >= 18){
+                        "Eres mayor de edad"
+                    }else{
+                        "Eres menor de edad"
+                    }
+                }
+            }
