@@ -38,7 +38,6 @@ fun main() {
                 val id = readLine()?.toIntOrNull()
                 
                 if (id != null) {
-                    // Se busca en la lista 'socios' (en plural)
                     val socio = socios.find { it.id == id }
                     
                     if (socio != null) {
