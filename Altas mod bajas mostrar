@@ -1,0 +1,104 @@
+data class Socio(val id: Int, var nombre: String, var edad: Int, var telefono: Int)
+
+fun main() {
+    val socios = mutableListOf<Socio>()
+    var opcion: Int
+    var idContador = 1
+    
+    do {
+        println("\n--- LISTA DE SOCIOS ---")
+        println("1.- Alta de nuevo socio")
+        println("2.- Modificar datos")
+        println("3.- Eliminar informacion")
+        println("4.- Ver lista de Socios")
+        println("5.- Salir")
+        print("Selecciona una opción: ")
+        
+        opcion = readLine()?.toIntOrNull() ?: 0
+        
+        when(opcion) {
+            1 -> {
+                println("\n--- Alta de Socio ---")
+                print("Ingresa el nombre: ")
+                val name = readLine().orEmpty()
+                
+                print("Ingresa la edad: ")
+                val edad = readLine()?.toIntOrNull() ?: 0 
+                
+                print("Ingresa el telefono: ")
+                val telefono = readLine()?.toIntOrNull() ?: 0
+                
+                socios.add(Socio(idContador, name, edad, telefono))
+                println("¡Socio dado de alta con ID $idContador!")
+                idContador++
+            }
+            2 -> {
+                println("\n--- MODIFICACION DE DATOS ---")
+                print("Ingrese el ID del socio para modificar datos: ")
+                val id = readLine()?.toIntOrNull()
+                
+                if (id != null) {
+                    // Se busca en la lista 'socios' (en plural)
+                    val socio = socios.find { it.id == id }
+                    
+                    if (socio != null) {
+                        println("Socio Encontrado: ${socio.nombre}")
+                        
+                        print("Escriba el nuevo nombre (dejar en blanco para no modificar): ")
+                        val newName = readLine()
+                        if (!newName.isNullOrBlank()) {
+                            socio.nombre = newName
+                        }
+                        
+                        print("Escriba la nueva edad (dejar en blanco para no modificar): ")
+                        val newEdadStr = readLine()
+                        val newEdad = newEdadStr?.toIntOrNull()
+                        if (newEdad != null) {
+                            socio.edad = newEdad
+                        }
+                        
+                        print("Escriba el nuevo numero de telefono (dejar en blanco para no modificar): ")
+                        val newTelefonoStr = readLine()
+                        val newTelefono = newTelefonoStr?.toIntOrNull()
+                        if (newTelefono != null) {
+                            socio.telefono = newTelefono
+                        }
+                        
+                        println("¡Actualización exitosa!")
+                    } else {
+                        println("No se encontró socio con ID $id.")
+                    }
+                } else {
+                    println("ID Inválido")
+                }
+            }
+            3 -> {
+                println("\n--- ELIMINAR SOCIO ---")
+                print("Ingrese el ID del socio para eliminar: ")
+                val id = readLine()?.toIntOrNull()
+                
+                if (id != null) {
+                
+                    val eliminado = socios.removeIf { it.id == id }
+                    if (eliminado) {
+                        println("Socio con ID $id eliminado correctamente.")
+                    } else {
+                        println("No se encontró ningún socio con el ID $id.")
+                    }
+                } else {
+                    println("ID Inválido")
+                }
+            }
+            4 -> {
+                println("\n--- Lista Actual ---")
+                if (socios.isEmpty()) {
+                    println("No hay socios registrados.")
+                } else {
+                    socios.forEach { println(it) }
+                }
+            }
+            5 -> println("\n¡Hasta luego!")
+            else -> println("\nOpción no válida, intenta de nuevo.")
+        }
+    } while (opcion != 5)
+}
